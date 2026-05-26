@@ -1,0 +1,34 @@
+# ─── OS & System Metadata ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ─── IDE & Editor Configs ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# ─── Scratch & Temp Work ──────────────────────────────────────────────────────
+scratch/
+tmp/
+temp/
+*.log
+
+# ─── Design & Planning Docs ───────────────────────────────────────────────────
+examples and plan/
+
+# ─── What IS committed ────────────────────────────────────────────────────────
+# index.html
+# README.md
+# src/app.js
+# src/css/style.css
+# src/data/gpus.json
+# src/data/models.json
+# src/engine/fitScore.js
+# src/engine/memoryCalc.js
+# src/engine/speedEstimate.js

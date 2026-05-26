@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Hardware Advisor — Know What Your Rig Can Run</title>
+  <meta name="description" content="Give it a model, get the specs you need. Give it your specs, get the best models you can run. Free, client-side LLM compatibility calculator.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E0F11'/><text x='4' y='24' font-size='22' fill='%2300D4AA'>⚡</text></svg>">
+  <link rel="stylesheet" href="./src/css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ═══ HEADER ═══ -->
+    <header class="header" id="app-header">
+      <div class="logo" id="logo" onclick="showLanding()">
+        llm-advisor<span class="logo-dot">.dev</span>
+      </div>
+      <div class="header-right">
+        <div class="mode-tabs" id="mode-tabs">
+          <button class="mode-tab" id="tab-model" onclick="showMode('model')">model → specs</button>
+          <button class="mode-tab" id="tab-specs" onclick="showMode('specs')">specs → model</button>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
+      </div>
+    </header>
+
+    <!-- ═══ LANDING PAGE ═══ -->
+    <main id="page-landing" class="landing">
+      <h1 class="landing-title">
+        Know What Your<br><span class="accent-text">Rig Can Run</span>
+      </h1>
+      <p class="landing-subtitle">
+        Give it a model — get the specs you need.<br>
+        Give it your specs — get the best models you can run.<br>
+        Click any model — see full compatibility detail for your exact rig.
+      </p>
+      <div class="landing-cards">
+        <div class="landing-card" onclick="showMode('model')">
+          <span class="landing-card-icon">🔬</span>
+          <div class="landing-card-title">model → specs</div>
+          <div class="landing-card-desc">
+            Pick a model and see exactly how much VRAM, RAM, and disk space it needs at any quantization level.
+          </div>
+          <span class="landing-badge">I KNOW WHAT I WANT TO RUN</span>
+        </div>
+        <div class="landing-card" onclick="showMode('specs')">
+          <span class="landing-card-icon">🖥️</span>
+          <div class="landing-card-title">specs → model</div>
+          <div class="landing-card-desc">
+            Enter your GPU, RAM, and CPU — get a ranked list of every model that fits your hardware.
+          </div>
+          <span class="landing-badge">SHOW ME WHAT FITS MY RIG</span>
+        </div>
+      </div>
+      <div class="landing-footer">
+        All calculations run <span>client-side</span>. No data leaves your browser. <span>Inference only</span>.
+      </div>
+    </main>
+
+    <!-- ═══ MODE A: MODEL → SPECS ═══ -->
+    <div id="page-model" class="hidden">
+      <div class="mode-layout">
+        <!-- Input Panel -->
+        <div class="panel">
+          <div class="panel-label">Configure Model</div>
+
+          <div class="field-group">
+            <label class="field-label" for="model-search">Model</label>
+            <div class="search-input-wrap" id="model-search-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="model-search" placeholder="Search models..." autocomplete="off">
+              <span class="search-tag" id="model-param-tag"></span>
+              <div class="dropdown-list" id="model-dropdown"></div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Quantization</label>
+            <div class="quant-options" id="quant-picker"></div>
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label class="slider-label" for="ctx-slider">Context Length</label>
+              <span class="slider-val" id="ctx-val">4,096 tokens</span>
+            </div>
+            <input type="range" id="ctx-slider" min="0" max="7" value="2">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="backend-select">Backend</label>
+            <select class="select-box" id="backend-select">
+              <option value="ollama">Ollama (llama.cpp)</option>
+              <option value="llama.cpp">llama.cpp (direct)</option>
+              <option value="vllm">vLLM</option>
+              <option value="transformers">HuggingFace Transformers</option>
+              <option value="exllamav2">ExLlamaV2</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" id="calc-model-btn" onclick="calculateModelSpecs()">Calculate Requirements ↗</button>
+        </div>
+
+        <!-- Results Panel -->
+        <div id="model-results">
+          <div class="no-results" id="model-placeholder">
+            <span class="empty-icon">⚡</span>
+            <div class="empty-title">Select a model to begin</div>
+            <div class="empty-desc">Choose a model, pick a quantization, and see exactly what you need to run it.</div>
+          </div>
+          <div id="model-results-content" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MODE B: SPECS → MODEL ═══ -->
+    <div id="page-specs" class="hidden">
+      <div class="mode-layout">
+        <!-- Input Panel -->
+        <div class="panel">
+          <div class="panel-label">Your Hardware</div>
+
+          <div class="field-group">
+            <label class="field-label" for="gpu-search">GPU</label>
+            <div class="search-input-wrap" id="gpu-search-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="gpu-search" placeholder="Search GPUs..." autocomplete="off">
+              <span class="vram-pill" id="gpu-vram-pill"></span>
+              <div class="dropdown-list" id="gpu-dropdown"></div>
+            </div>
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label class="slider-label" for="ram-slider">System RAM</label>
+              <span class="slider-val" id="ram-val">32 GB</span>
+            </div>
+            <input type="range" id="ram-slider" min="0" max="8" value="3">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="cpu-select">CPU Class</label>
+            <select class="select-box" id="cpu-select">
+              <option value="x86">AMD Ryzen / Intel Core</option>
+              <option value="apple">Apple Silicon M-series</option>
+              <option value="epyc">AMD EPYC</option>
+              <option value="xeon">Intel Xeon</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="specs-backend-select">Backend</label>
+            <select class="select-box" id="specs-backend-select">
+              <option value="ollama">Ollama (llama.cpp)</option>
+              <option value="llama.cpp">llama.cpp (direct)</option>
+              <option value="vllm">vLLM</option>
+              <option value="transformers">HuggingFace Transformers</option>
+              <option value="exllamav2">ExLlamaV2</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label">Task Tags</label>
+            <div class="tag-row" id="task-tags">
+              <button class="tag-btn active" data-tag="chat">Chat</button>
+              <button class="tag-btn" data-tag="code">Code</button>
+              <button class="tag-btn" data-tag="reasoning">Reasoning</button>
+              <button class="tag-btn" data-tag="rag">RAG</button>
+              <button class="tag-btn" data-tag="vision">Vision</button>
+              <button class="tag-btn" data-tag="multilingual">Multilingual</button>
+              <button class="tag-btn" data-tag="math">Math</button>
+            </div>
+          </div>
+
+          <button class="calc-btn" onclick="calculateSpecsModels()">Find Compatible Models ↗</button>
+        </div>
+
+        <!-- Results Panel -->
+        <div id="specs-results">
+          <div class="no-results" id="specs-placeholder">
+            <span class="empty-icon">🖥️</span>
+            <div class="empty-title">Select your GPU to begin</div>
+            <div class="empty-desc">Enter your hardware specs and discover which LLMs your rig can run.</div>
+          </div>
+          <div id="specs-results-content" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ COMPATIBILITY DRAWER ═══ -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <div id="drawer-content"></div>
+  </div>
+
+  <!-- ═══ TOAST ═══ -->
+  <div class="toast" id="toast">Copied to clipboard</div>
+
+  <!-- ═══ SCRIPTS ═══ -->
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
