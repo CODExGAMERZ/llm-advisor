@@ -85,7 +85,7 @@ export function getUsageColor(usagePercent) {
  * @param {string} backend - Inference backend
  * @returns {{ quant: string, score: number, label: object } | null}
  */
-export function findBestQuant(paramsB, model, gpuVRAM_GB, supportedQuants, contextLen, backend) {
+export function findBestQuant(paramsB, model, gpuVRAM_GB, supportedQuants, contextLen, backend, gpuCount = 1) {
 
   // Order quants from highest quality to lowest
   const qualityOrder = ['FP16', 'BF16', 'Q8_0', 'Q6_K', 'Q5_K_M', 'Q5_K_S', 'Q4_K_M', 'Q4_K_S', 'Q4_0', 'Q3_K_M', 'Q3_K_S', 'Q2_K', 'IQ2_XXS'];
@@ -95,7 +95,7 @@ export function findBestQuant(paramsB, model, gpuVRAM_GB, supportedQuants, conte
   for (const quant of qualityOrder) {
     if (!supportedQuants.includes(quant)) continue;
     
-    const vram = calcTotalVRAM(paramsB, model, quant, contextLen, backend);
+    const vram = calcTotalVRAM(paramsB, model, quant, contextLen, backend, 1, gpuCount);
     const score = calcFitScore(gpuVRAM_GB, vram.totalGB);
     
     if (score >= 0.85) {

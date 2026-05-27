@@ -95,6 +95,16 @@ const state = {
   activeFamily:       'all',
   sortBy:             'best',
   gpuMode:            'search', // 'search' or 'custom'
+  selectedBatchSize:  1,
+  selectedGpuCount:   1,
+  customModel: {
+    name: 'Custom LLM',
+    paramsB: 8,
+    quant: 'Q4_K_M',
+    ctxIdx: 3, // 8192
+    batchSize: 1,
+    architecture: 'gqa'
+  }
 };
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
@@ -121,16 +131,24 @@ function showLanding() {
   document.getElementById('page-landing').classList.remove('hidden');
   document.getElementById('page-model').classList.add('hidden');
   document.getElementById('page-specs').classList.add('hidden');
+  document.getElementById('page-custom').classList.add('hidden');
   document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
 }
 
 function showMode(mode) {
-  const isModel = mode === 'model';
   document.getElementById('page-landing').classList.add('hidden');
-  document.getElementById('page-model').classList.toggle('hidden', !isModel);
-  document.getElementById('page-specs').classList.toggle('hidden', isModel);
-  document.getElementById('tab-model').classList.toggle('active', isModel);
-  document.getElementById('tab-specs').classList.toggle('active', !isModel);
+  document.getElementById('page-model').classList.toggle('hidden', mode !== 'model');
+  document.getElementById('page-specs').classList.toggle('hidden', mode !== 'specs');
+  document.getElementById('page-custom').classList.toggle('hidden', mode !== 'custom');
+  
+  document.getElementById('tab-model').classList.toggle('active', mode === 'model');
+  document.getElementById('tab-specs').classList.toggle('active', mode === 'specs');
+  document.getElementById('tab-custom').classList.toggle('active', mode === 'custom');
+
+  if (mode === 'custom') {
+    populateCustomQuants();
+    calculateCustomSpecs();
+  }
 }
 
 // ─── Custom VRAM Mode Helpers ──────────────────────────────────────────────────
@@ -290,7 +308,8 @@ function calculateModelSpecs() {
   const quant   = state.selectedQuant;
   const ctxLen  = CTX_STEPS[state.selectedCtxIdx];
   const backend = state.selectedBackend;
-  const v       = calcTotalVRAM(model.params_B, model, quant, ctxLen, backend);
+  const batch   = state.selectedBatchSize || 1;
+  const v       = calcTotalVRAM(model.params_B, model, quant, ctxLen, backend, batch);
   const speedT  = getSpeedTiers(v.weightsGB);
   const disk    = calcDiskSpace(model.params_B, quant);
   const ramNeeded = calcMinRAM(model.params_B, quant);
@@ -427,6 +446,7 @@ function calculateSpecsModels() {
     return;
   }
 
+  const count   = state.selectedCPU === 'apple' ? 1 : state.selectedGpuCount;
   const ramGB   = RAM_STEPS[state.selectedRamIdx];
   const backend = state.selectedSpecsBackend;
   const ctxLen  = CTX_STEPS[state.selectedCtxIdx] || 4096;
@@ -442,11 +462,17 @@ function calculateSpecsModels() {
     filtered = filtered.filter(m => m.family === state.activeFamily);
   }
 
+  const pooledVRAM = gpu.vram_gb * count;
+  const pooledBandwidth = count > 1 ? (gpu.bandwidth_GBs * count * 0.85) : gpu.bandwidth_GBs;
+
   // Score each model
   const results = filtered.map(model => {
-    const best = findBestQuant(model.params_B, model, gpu.vram_gb, model.supported_quants || ['FP16','Q4_K_M'], ctxLen, backend);
+    const best = findBestQuant(model.params_B, model, pooledVRAM, model.supported_quants || ['FP16','Q4_K_M'], ctxLen, backend, count);
     if (!best) return null;
-    const spd = estimateSpeedForGPU(gpu.bandwidth_GBs, best.vram.weightsGB);
+    const spd = estimateSpeedForGPU(pooledBandwidth, best.vram.weightsGB);
+    if (count > 1) {
+      spd.speed = Math.max(8, Math.round(spd.speed * 0.8)); // multi-GPU latency penalty
+    }
     const disk = calcDiskSpace(model.params_B, best.quant);
     return { model, best, speed: spd, disk };
   }).filter(Boolean);
@@ -461,10 +487,10 @@ function calculateSpecsModels() {
   });
 
   // Upgrade callout: what if GPU had 8 more GB?
-  const nextVram = gpu.vram_gb + 8;
+  const nextVram = pooledVRAM + 8;
   const moreModels = MODELS.filter(m => {
     if (results.find(r => r.model.id === m.id)) return false;
-    const best = findBestQuant(m.params_B, m, nextVram, m.supported_quants || ['FP16','Q4_K_M'], ctxLen, backend);
+    const best = findBestQuant(m.params_B, m, nextVram, m.supported_quants || ['FP16','Q4_K_M'], ctxLen, backend, count);
     return best && best.score >= 1.0;
   });
 
@@ -475,7 +501,21 @@ function calculateSpecsModels() {
   } else {
     // Family filter bar
     const families = ['all', ...new Set(MODELS.map(m => m.family))].sort();
+    
+    // Apple Silicon Warning/Info callout
+    const macAlertHtml = state.selectedCPU === 'apple' ? `
+      <div class="mac-unified-alert">
+        <strong>🍏 Apple Silicon Unified Memory Active</strong><br>
+        Your system has unified memory shared between CPU and GPU. macOS allocates up to <strong>75%</strong> of system RAM to the GPU by default. 
+        To run larger models (up to 90% allocation), you can run this command in terminal:<br>
+        <code>sudo sysctl iogpu.wired_mem_limit=${Math.round(ramGB * 1024 * 0.9)}</code> (requires restart).
+      </div>
+    ` : '';
+
+    const gpuDisplayName = count > 1 ? `${count} × ${gpu.display_name}` : gpu.display_name;
+
     container.innerHTML = `
+      ${macAlertHtml}
       <div class="results-controls">
         <div class="family-filters">
           ${families.map(f => `<button class="tag-btn ${state.activeFamily === f ? 'active' : ''}" onclick="setFamily('${f}')">${f}</button>`).join('')}
@@ -490,7 +530,7 @@ function calculateSpecsModels() {
         </div>
       </div>
 
-      <div class="results-count">${results.length} model${results.length !== 1 ? 's' : ''} fit your rig</div>
+      <div class="results-count">${results.length} model${results.length !== 1 ? 's' : ''} fit your rig (${gpuDisplayName})</div>
 
       <div class="models-list-container">
         ${results.map(({ model, best, speed, disk }) => `
@@ -654,15 +694,223 @@ function showToast(msg) {
 
 // ─── Initialization ────────────────────────────────────────────────────────────
 
+// ─── Apple Silicon Support ─────────────────────────────────────────────────────
+
+function updateAppleUnifiedMemory() {
+  const isApple = state.selectedCPU === 'apple';
+  const gpuSearchWrap = document.getElementById('gpu-search-wrap');
+  const gpuModeBtn = document.getElementById('gpu-mode-btn');
+  const gpuLabel = document.getElementById('gpu-label-text');
+  
+  if (isApple) {
+    gpuSearchWrap.style.display = 'none';
+    gpuModeBtn.style.display = 'none';
+    gpuLabel.textContent = 'GPU (Managed Unified Memory)';
+    
+    const ramGB = RAM_STEPS[state.selectedRamIdx];
+    const unifiedVram = Math.round(ramGB * 0.75);
+    let bandwidth = 150;
+    if (ramGB >= 128) bandwidth = 800; // Ultra
+    else if (ramGB >= 64) bandwidth = 400; // Max
+    else if (ramGB >= 32) bandwidth = 200; // Pro
+    
+    state.selectedGPU = {
+      id: "apple-unified",
+      display_name: `Apple Silicon Unified Memory`,
+      vram_gb: unifiedVram,
+      bandwidth_GBs: bandwidth,
+      architecture: "Unified",
+      tier: "consumer",
+      msrp_usd: 0,
+      year: new Date().getFullYear()
+    };
+  } else {
+    gpuSearchWrap.style.display = 'flex';
+    gpuModeBtn.style.display = 'block';
+    gpuLabel.textContent = state.gpuMode === 'custom' ? 'Custom VRAM (GB)' : 'GPU';
+    
+    if (state.selectedGPU && state.selectedGPU.id === 'apple-unified') {
+      state.selectedGPU = null;
+      document.getElementById('gpu-search').value = '';
+      document.getElementById('gpu-vram-pill').style.display = 'none';
+    }
+  }
+}
+
+// ─── Custom Model Calculator ───────────────────────────────────────────────────
+
+function populateCustomQuants() {
+  const select = document.getElementById('custom-quant-select');
+  if (select && select.children.length > 0) return; // already populated
+  
+  const quants = Object.keys(QUANT_BITS);
+  select.innerHTML = quants.map(q => {
+    const bits = QUANT_BITS[q];
+    return `<option value="${q}" ${q === state.customModel.quant ? 'selected' : ''}>${q} (~${bits} bits)</option>`;
+  }).join('');
+}
+
+function calculateCustomSpecs() {
+  const name = document.getElementById('custom-name').value || 'Custom LLM';
+  const paramsB = parseFloat(document.getElementById('custom-params').value) || 8.0;
+  const quant = document.getElementById('custom-quant-select').value || 'Q4_K_M';
+  const ctxLen = CTX_STEPS[state.customModel.ctxIdx];
+  const batchSize = state.customModel.batchSize || 1;
+  const arch = document.getElementById('custom-architecture').value || 'gqa';
+  
+  // Custom GQA/MHA/MQA configurations
+  let layers = 32;
+  let attentionHeads = 32;
+  let kvHeads = 8;
+  if (arch === 'mha') kvHeads = 32;
+  if (arch === 'mqa') kvHeads = 1;
+  
+  if (paramsB > 100) {
+    layers = 80;
+    attentionHeads = 64;
+    kvHeads = arch === 'mha' ? 64 : 8;
+  } else if (paramsB > 30) {
+    layers = 64;
+    attentionHeads = 48;
+    kvHeads = arch === 'mha' ? 48 : 8;
+  } else if (paramsB > 14) {
+    layers = 40;
+    attentionHeads = 40;
+    kvHeads = arch === 'mha' ? 40 : 8;
+  }
+  
+  const mockModel = {
+    id: 'custom-model',
+    display_name: name,
+    params_B: paramsB,
+    layers: layers,
+    attention_heads: attentionHeads,
+    kv_heads: kvHeads,
+    head_dim: 128,
+    supported_quants: Object.keys(QUANT_BITS)
+  };
+  
+  const v = calcTotalVRAM(paramsB, mockModel, quant, ctxLen, 'ollama', batchSize);
+  const speedT  = getSpeedTiers(v.weightsGB);
+  const disk    = calcDiskSpace(paramsB, quant);
+  const ramNeeded = calcMinRAM(paramsB, quant);
+  
+  const wPct  = v.totalGB > 0 ? (v.weightsGB / v.totalGB * 100).toFixed(1) : 0;
+  const kvPct = v.totalGB > 0 ? (v.kvCacheGB / v.totalGB * 100).toFixed(1) : 0;
+  const ohPct = v.totalGB > 0 ? (v.overheadGB / v.totalGB * 100).toFixed(1) : 0;
+
+  const quality = QUANT_QUALITY[quant] || { score: '—', loss: '—', text: 'Unknown', color: '#8B8FA8' };
+
+  // GPU compatibility rows
+  const gpuRows = [...GPUS]
+    .sort((a, b) => b.vram_gb - a.vram_gb)
+    .map(gpu => {
+      const score = calcFitScore(gpu.vram_gb, v.totalGB);
+      const label = getFitLabel(score);
+      const spd   = estimateSpeedForGPU(gpu.bandwidth_GBs, v.weightsGB);
+      return { gpu, score, label, speed: spd };
+    });
+
+  const container = document.getElementById('custom-results-content');
+  container.innerHTML = `
+    <div class="result-card vram-card">
+      <div class="vram-header">
+        <span class="vram-title">VRAM Required</span>
+        <div><span class="vram-number">${v.totalGB.toFixed(1)}</span><span class="vram-unit"> GB</span></div>
+      </div>
+      <div class="bar-container">
+        <div class="bar-seg seg-weights"  style="width:${wPct}%"  title="Weights: ${v.weightsGB.toFixed(1)} GB"></div>
+        <div class="bar-seg seg-kv"       style="width:${kvPct}%" title="KV Cache: ${v.kvCacheGB.toFixed(1)} GB"></div>
+        <div class="bar-seg seg-overhead" style="width:${ohPct}%" title="Overhead: ${v.overheadGB.toFixed(1)} GB"></div>
+      </div>
+      <div class="bar-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>weights <span class="legend-val">${v.weightsGB.toFixed(1)} GB</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--warn)"></div>kv-cache <span class="legend-val">${v.kvCacheGB.toFixed(1)} GB</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--text-muted)"></div>overhead <span class="legend-val">${v.overheadGB.toFixed(1)} GB</span></div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Disk Space</div>
+        <div class="stat-value">${disk.toFixed(1)} <span class="stat-unit">GB</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Min System RAM</div>
+        <div class="stat-value">${ramNeeded} <span class="stat-unit">GB</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Quality Loss</div>
+        <div class="stat-value" style="color:${quality.color}">${quality.text}</div>
+        <div class="stat-sub">${quality.loss} degradation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">KV Dimension</div>
+        <div class="stat-value">${layers}L / ${kvHeads}H</div>
+        <div class="stat-sub">${arch.toUpperCase()} KV structure</div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="section-label">⚡ Speed Estimates (approximate)</div>
+      <div class="speed-grid">
+        <div class="speed-card">
+          <div class="speed-tier">CPU-only</div>
+          <div class="speed-val">${formatSpeedRange(speedT.low.min, speedT.low.max)}</div>
+          <div class="speed-sub">tokens/sec · DDR5</div>
+        </div>
+        <div class="speed-card">
+          <div class="speed-tier">Mid GPU</div>
+          <div class="speed-val">${formatSpeedRange(speedT.mid.min, speedT.mid.max)}</div>
+          <div class="speed-sub">tokens/sec · RTX 3090</div>
+        </div>
+        <div class="speed-card">
+          <div class="speed-tier">High-end</div>
+          <div class="speed-val">${formatSpeedRange(speedT.high.min, speedT.high.max)}</div>
+          <div class="speed-sub">tokens/sec · 2× A100</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-card">
+      <div class="section-label">🖥️ GPU Compatibility</div>
+      <div class="gpu-compat-list">
+        ${gpuRows.map(({ gpu, label, speed }) => `
+          <div class="gpu-row">
+            <span class="gpu-name">${gpu.display_name}</span>
+            <span class="gpu-vram-badge">${gpu.vram_gb}GB</span>
+            <span class="fit-badge ${label.cssClass}">${label.label}</span>
+            <span class="gpu-speed">~${speed.speed} t/s</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  document.getElementById('custom-placeholder').classList.add('hidden');
+  container.classList.remove('hidden');
+}
+
+// ─── Initialization ────────────────────────────────────────────────────────────
+
 function init() {
   initTheme();
 
-  // Context slider
+  // Context slider (Mode A)
   const ctxSlider = document.getElementById('ctx-slider');
   const ctxVal    = document.getElementById('ctx-val');
   ctxSlider.addEventListener('input', () => {
     state.selectedCtxIdx = parseInt(ctxSlider.value);
     ctxVal.textContent = CTX_STEPS[state.selectedCtxIdx].toLocaleString() + ' tokens';
+    if (state.selectedModel) calculateModelSpecs();
+  });
+
+  // Batch slider (Mode A)
+  const batchSlider = document.getElementById('batch-slider');
+  const batchVal    = document.getElementById('batch-val');
+  batchSlider.addEventListener('input', () => {
+    state.selectedBatchSize = parseInt(batchSlider.value);
+    batchVal.textContent = state.selectedBatchSize;
     if (state.selectedModel) calculateModelSpecs();
   });
 
@@ -678,19 +926,33 @@ function init() {
   ramSlider.addEventListener('input', () => {
     state.selectedRamIdx = parseInt(ramSlider.value);
     ramVal.textContent = RAM_STEPS[state.selectedRamIdx] + ' GB';
+    if (state.selectedCPU === 'apple') {
+      updateAppleUnifiedMemory();
+    }
+    if (state.selectedGPU) calculateSpecsModels();
   });
 
   // Backend select (Mode B)
   document.getElementById('specs-backend-select').addEventListener('change', (e) => {
     state.selectedSpecsBackend = e.target.value;
+    if (state.selectedGPU) calculateSpecsModels();
   });
 
-  // CPU select
+  // CPU select (Mode B)
   document.getElementById('cpu-select').addEventListener('change', (e) => {
     state.selectedCPU = e.target.value;
+    updateAppleUnifiedMemory();
+    document.getElementById('gpu-count-group').classList.toggle('hidden', state.selectedCPU === 'apple');
+    if (state.selectedGPU) calculateSpecsModels();
   });
 
-  // Task tags
+  // GPU Count select (Mode B)
+  document.getElementById('gpu-count-select').addEventListener('change', (e) => {
+    state.selectedGpuCount = parseInt(e.target.value);
+    if (state.selectedGPU) calculateSpecsModels();
+  });
+
+  // Task tags (Mode B)
   document.querySelectorAll('#task-tags .tag-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tag = btn.dataset.tag;
@@ -700,7 +962,32 @@ function init() {
       } else {
         state.activeTags.push(tag);
       }
+      if (state.selectedGPU) calculateSpecsModels();
     });
+  });
+
+  // Custom name/params/quant/arch inputs (Mode C)
+  document.getElementById('custom-name').addEventListener('input', calculateCustomSpecs);
+  document.getElementById('custom-params').addEventListener('input', calculateCustomSpecs);
+  document.getElementById('custom-quant-select').addEventListener('change', calculateCustomSpecs);
+  document.getElementById('custom-architecture').addEventListener('change', calculateCustomSpecs);
+
+  // Custom context slider (Mode C)
+  const customCtxSlider = document.getElementById('custom-ctx-slider');
+  const customCtxVal    = document.getElementById('custom-ctx-val');
+  customCtxSlider.addEventListener('input', () => {
+    state.customModel.ctxIdx = parseInt(customCtxSlider.value);
+    customCtxVal.textContent = CTX_STEPS[state.customModel.ctxIdx].toLocaleString() + ' tokens';
+    calculateCustomSpecs();
+  });
+
+  // Custom batch slider (Mode C)
+  const customBatchSlider = document.getElementById('custom-batch-slider');
+  const customBatchVal    = document.getElementById('custom-batch-val');
+  customBatchSlider.addEventListener('input', () => {
+    state.customModel.batchSize = parseInt(customBatchSlider.value);
+    customBatchVal.textContent = state.customModel.batchSize;
+    calculateCustomSpecs();
   });
 
   // Escape key closes drawer
@@ -708,18 +995,21 @@ function init() {
     if (e.key === 'Escape') closeDrawer();
   });
 
-  // Model search
+  // Model search (Mode A)
   setupSearch('model-search', 'model-dropdown', MODELS,
     m => m.display_name,
     m => m.params_B + 'B · ' + m.family,
     selectModel
   );
 
-  // GPU search
+  // GPU search (Mode B)
   setupSearch('gpu-search', 'gpu-dropdown', GPUS,
     g => g.display_name,
     g => g.vram_gb + ' GB VRAM',
-    selectGPU
+    (gpu) => {
+      selectGPU(gpu);
+      calculateSpecsModels();
+    }
   );
 }
 
@@ -731,7 +1021,6 @@ async function loadData() {
     ]);
     MODELS = await modelsRes.json();
     GPUS   = await gpusRes.json();
-    // Sort GPUs: descending VRAM
     GPUS.sort((a, b) => b.vram_gb - a.vram_gb);
     init();
   } catch (err) {
@@ -753,6 +1042,7 @@ window.showMode            = showMode;
 window.toggleTheme         = toggleTheme;
 window.calculateModelSpecs = calculateModelSpecs;
 window.calculateSpecsModels= calculateSpecsModels;
+window.calculateCustomSpecs = calculateCustomSpecs;
 window.closeDrawer         = closeDrawer;
 window.openDrawer          = openDrawer;
 window.selectQuant         = selectQuant;

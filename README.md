@@ -10,8 +10,11 @@ Know exactly what quantization levels and context sizes your rig can handle befo
 
 *   **100% Client-Side:** No server requirements, no trackers, and zero data leaving your browser. Calculations run instantly in pure JavaScript.
 *   **"Terminal Precision" Design System:** A high-contrast, premium, dark-mode terminal aesthetic designed with custom CSS variables, custom typography (JetBrains Mono & DM Sans), micro-animations, and full mobile responsiveness.
-*   **Mode A: Model ➔ Specs:** Select from 64 models across 16 families. Configure context length, quantizations, and inference backend. Get a real-time, interactive **VRAM usage breakdown** (Weights vs. KV Cache vs. Backend Overhead) and **estimated tokens/sec**.
-*   **Mode B: Specs ➔ Model:** Select your GPU, CPU class, RAM size, and targets. Instantly see a ranked list of models that fit your hardware.
+*   **Mode A: Model ➔ Specs:** Select from 64 models across 16 families. Configure context length, batch size, quantizations, and inference backend. Get a real-time, interactive **VRAM usage breakdown** (Weights vs. KV Cache vs. Backend Overhead) and **estimated tokens/sec**. Updates automatically as parameters slide.
+*   **Mode B: Specs ➔ Model:** Select your GPU, GPU Count (for multi-GPU setups), CPU class, RAM size, and targets. Instantly see a ranked list of models that fit your hardware.
+*   **Mode C: Custom Calculator:** Estimate VRAM, bandwidth, disk, and GPU compatibility for any custom or newly released model by entering custom parameters, quantization types, and attention architectures (GQA, MQA, MHA).
+*   **Apple Silicon Unified Memory Support:** If CPU class is set to Apple Silicon, the GPU search is automatically linked to system unified memory (75% allocation limit) with dedicated callouts explaining how to optimize it using macOS terminal commands.
+*   **Multi-GPU Configuration:** Support dual, triple, or quad GPU arrangements, automatically pooling VRAM limits and accounting for PCIe interconnect scaling/overhead in estimated generation speeds.
 *   **Laptop Hardware Support:** Expanded seed database of **95+ GPUs** including **25 laptop GPUs** sorted from lowest to highest, allowing users to accurately evaluate gaming laptops.
 *   **Three Sorting Modes for Specs ➔ Model:**
     1.  **Best Model (Default):** Sorted by parameter size (B) descending, then quantization quality (bits) descending, listing the smartest/most capable models that fit at the top.

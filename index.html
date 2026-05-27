@@ -22,6 +22,7 @@
         <div class="mode-tabs" id="mode-tabs">
           <button class="mode-tab" id="tab-model" onclick="showMode('model')">model → specs</button>
           <button class="mode-tab" id="tab-specs" onclick="showMode('specs')">specs → model</button>
+          <button class="mode-tab" id="tab-custom" onclick="showMode('custom')">custom model</button>
         </div>
         <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
       </div>
@@ -53,6 +54,14 @@
             Enter your GPU, RAM, and CPU — get a ranked list of every model that fits your hardware.
           </div>
           <span class="landing-badge">SHOW ME WHAT FITS MY RIG</span>
+        </div>
+        <div class="landing-card" onclick="showMode('custom')">
+          <span class="landing-card-icon">🧮</span>
+          <div class="landing-card-title">custom calculator</div>
+          <div class="landing-card-desc">
+            Enter custom parameter sizes, bits, and attention styles to estimate requirements for any new LLM.
+          </div>
+          <span class="landing-badge">CALCULATE ANY NEW MODEL</span>
         </div>
       </div>
       <div class="landing-footer">
@@ -88,6 +97,14 @@
               <span class="slider-val" id="ctx-val">4,096 tokens</span>
             </div>
             <input type="range" id="ctx-slider" min="0" max="7" value="2">
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label class="slider-label" for="batch-slider">Batch Size</label>
+              <span class="slider-val" id="batch-val">1</span>
+            </div>
+            <input type="range" id="batch-slider" min="1" max="64" value="1">
           </div>
 
           <div class="field-group">
@@ -134,6 +151,16 @@
               <span class="vram-pill" id="gpu-vram-pill"></span>
               <div class="dropdown-list" id="gpu-dropdown"></div>
             </div>
+          </div>
+
+          <div class="field-group" id="gpu-count-group">
+            <label class="field-label" for="gpu-count-select">GPU Count</label>
+            <select class="select-box" id="gpu-count-select">
+              <option value="1">1 GPU (Single)</option>
+              <option value="2">2 GPUs (Dual)</option>
+              <option value="3">3 GPUs (Triple)</option>
+              <option value="4">4 GPUs (Quad)</option>
+            </select>
           </div>
 
           <div class="slider-row">
@@ -189,6 +216,68 @@
             <div class="empty-desc">Enter your hardware specs and discover which LLMs your rig can run.</div>
           </div>
           <div id="specs-results-content" class="hidden"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ═══ MODE C: CUSTOM CALCULATOR ═══ -->
+    <div id="page-custom" class="hidden">
+      <div class="mode-layout">
+        <!-- Input Panel -->
+        <div class="panel">
+          <div class="panel-label">Custom Model Parameters</div>
+
+          <div class="field-group">
+            <label class="field-label" for="custom-name">Model Name</label>
+            <input type="text" class="select-box" id="custom-name" value="Custom LLM" style="background: var(--bg-elevated); cursor: text;">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="custom-params">Parameters (Billions)</label>
+            <input type="number" class="select-box" id="custom-params" value="8" step="0.1" min="0.1" max="1000" style="background: var(--bg-elevated); cursor: text;">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="custom-quant-select">Quantization</label>
+            <select class="select-box" id="custom-quant-select"></select>
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label class="slider-label" for="custom-ctx-slider">Context Length</label>
+              <span class="slider-val" id="custom-ctx-val">8,192 tokens</span>
+            </div>
+            <input type="range" id="custom-ctx-slider" min="0" max="7" value="3">
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-header">
+              <label class="slider-label" for="custom-batch-slider">Batch Size</label>
+              <span class="slider-val" id="custom-batch-val">1</span>
+            </div>
+            <input type="range" id="custom-batch-slider" min="1" max="64" value="1">
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="custom-architecture">KV Cache Architecture</label>
+            <select class="select-box" id="custom-architecture">
+              <option value="gqa">Grouped-Query Attention (GQA - Llama 3, Mistral)</option>
+              <option value="mha">Multi-Head Attention (MHA - Llama 1, Falcon)</option>
+              <option value="mqa">Multi-Query Attention (MQA - Command R)</option>
+            </select>
+          </div>
+
+          <button class="calc-btn" onclick="calculateCustomSpecs()">Calculate Requirements ↗</button>
+        </div>
+
+        <!-- Results Panel -->
+        <div id="custom-results">
+          <div class="no-results" id="custom-placeholder">
+            <span class="empty-icon">🧮</span>
+            <div class="empty-title">Calculate requirements for any LLM</div>
+            <div class="empty-desc">Enter parameter count, bit rate, context size, and attention model to see details.</div>
+          </div>
+          <div id="custom-results-content" class="hidden"></div>
         </div>
       </div>
     </div>

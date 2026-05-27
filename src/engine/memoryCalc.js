@@ -104,10 +104,11 @@ export const BACKEND_OVERHEAD = {
  * @param {number} [batch=1] - Batch size
  * @returns {{ weightsGB: number, kvCacheGB: number, overheadGB: number, totalGB: number }}
  */
-export function calcTotalVRAM(paramsB, model, quant, contextLen, backend = 'ollama', batch = 1) {
+export function calcTotalVRAM(paramsB, model, quant, contextLen, backend = 'ollama', batch = 1, gpuCount = 1) {
   const weightsGB = calcWeightMemory(paramsB, quant);
   const kvCacheGB = calcKVCacheMemory(model, contextLen, quant, batch);
-  const overheadGB = BACKEND_OVERHEAD[backend] || 0.75;
+  const baseOverhead = BACKEND_OVERHEAD[backend] || 0.75;
+  const overheadGB = gpuCount > 1 ? (baseOverhead + 0.5 * (gpuCount - 1)) : baseOverhead;
   const totalGB = weightsGB + kvCacheGB + overheadGB;
   
   return { weightsGB, kvCacheGB, overheadGB, totalGB };
