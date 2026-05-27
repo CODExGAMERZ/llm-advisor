@@ -1428,5 +1428,95 @@
     "tier": "laptop",
     "msrp_usd": 0,
     "year": 2021
+  },
+  {
+    "id": "rtx-2050-laptop",
+    "display_name": "NVIDIA RTX 2050 Laptop",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "gtx-1650ti",
+    "display_name": "NVIDIA GeForce GTX 1650 Ti",
+    "vram_gb": 4,
+    "bandwidth_GBs": 192,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 149,
+    "year": 2020
+  },
+  {
+    "id": "gtx-980",
+    "display_name": "NVIDIA GeForce GTX 980",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 549,
+    "year": 2014
+  },
+  {
+    "id": "rx-570-4gb",
+    "display_name": "AMD Radeon RX 570 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 169,
+    "year": 2017
+  },
+  {
+    "id": "rtx-3050-6gb-laptop",
+    "display_name": "NVIDIA RTX 3050 6GB Laptop",
+    "vram_gb": 6,
+    "bandwidth_GBs": 168,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "gtx-960-4gb",
+    "display_name": "NVIDIA GeForce GTX 960 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2015
+  },
+  {
+    "id": "gtx-1070-ti",
+    "display_name": "NVIDIA GeForce GTX 1070 Ti",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 449,
+    "year": 2017
+  },
+  {
+    "id": "rx-470-4gb",
+    "display_name": "AMD Radeon RX 470 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 176,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 179,
+    "year": 2016
+  },
+  {
+    "id": "rx-5500xt-8gb",
+    "display_name": "AMD Radeon RX 5500 XT 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "RDNA 1.0",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2019
   }
 ]

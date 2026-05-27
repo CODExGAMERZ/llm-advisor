@@ -18,6 +18,9 @@ scratch/
 tmp/
 temp/
 *.log
+dom_step*.txt
+chrome_log.txt
+*.png
 
 # ─── Design & Planning Docs ───────────────────────────────────────────────────
 examples and plan/

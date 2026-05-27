@@ -94,6 +94,7 @@ const state = {
   activeTags:         ['chat'],
   activeFamily:       'all',
   sortBy:             'best',
+  gpuMode:            'search', // 'search' or 'custom'
 };
 
 // ─── Theme ────────────────────────────────────────────────────────────────────
@@ -132,6 +133,69 @@ function showMode(mode) {
   document.getElementById('tab-specs').classList.toggle('active', !isModel);
 }
 
+// ─── Custom VRAM Mode Helpers ──────────────────────────────────────────────────
+
+function estimateBandwidthFromVRAM(vram) {
+  if (vram <= 4) return 112;      // e.g. GTX 1650 / RTX 2050
+  if (vram <= 6) return 192;      // e.g. RTX 3050 Laptop / 2060
+  if (vram <= 8) return 224;      // e.g. RTX 3060 Ti / RX 6600
+  if (vram <= 12) return 336;     // e.g. RTX 3060 12GB / RTX 4070
+  if (vram <= 16) return 448;     // e.g. RTX 4070 Ti Super / RX 7800 XT
+  if (vram <= 24) return 1008;    // e.g. RTX 3090 / 4090
+  if (vram <= 48) return 1150;    // workstation (RTX 6000 Ada / L40S)
+  if (vram <= 80) return 2000;    // server (A100)
+  return 3000;                    // high server (H200)
+}
+
+function handleCustomVramInput(val) {
+  const vram = parseInt(val);
+  if (!isNaN(vram) && vram > 0) {
+    state.selectedGPU = {
+      id: "custom-vram",
+      display_name: `Custom ${vram}GB GPU`,
+      vram_gb: vram,
+      bandwidth_GBs: estimateBandwidthFromVRAM(vram),
+      architecture: "Custom",
+      tier: "consumer",
+      msrp_usd: 0,
+      year: new Date().getFullYear()
+    };
+  } else {
+    state.selectedGPU = null;
+  }
+}
+
+function toggleGpuMode() {
+  const btn = document.getElementById('gpu-mode-btn');
+  const input = document.getElementById('gpu-search');
+  const pill = document.getElementById('gpu-vram-pill');
+  const label = document.getElementById('gpu-label-text');
+  const dropdown = document.getElementById('gpu-dropdown');
+
+  if (state.gpuMode === 'search') {
+    state.gpuMode = 'custom';
+    btn.textContent = 'or search GPUs';
+    label.textContent = 'Custom VRAM (GB)';
+    input.placeholder = 'Enter VRAM size in GB (e.g. 12, 16)...';
+    input.type = 'number';
+    input.value = state.selectedGPU ? state.selectedGPU.vram_gb : '';
+    pill.style.display = 'none';
+    dropdown.classList.remove('open');
+    handleCustomVramInput(input.value);
+  } else {
+    state.gpuMode = 'search';
+    btn.textContent = 'or input VRAM';
+    label.textContent = 'GPU';
+    input.placeholder = 'Search GPUs...';
+    input.type = 'text';
+    input.value = state.selectedGPU && state.selectedGPU.id !== 'custom-vram' ? state.selectedGPU.display_name : '';
+    pill.style.display = state.selectedGPU && state.selectedGPU.id !== 'custom-vram' ? 'inline-block' : 'none';
+    if (state.selectedGPU && state.selectedGPU.id === 'custom-vram') {
+      state.selectedGPU = null;
+    }
+  }
+}
+
 // ─── Search Dropdown ──────────────────────────────────────────────────────────
 
 function setupSearch(inputId, dropdownId, items, labelFn, subFn, onSelect) {
@@ -143,7 +207,7 @@ function setupSearch(inputId, dropdownId, items, labelFn, subFn, onSelect) {
     const filtered = q
       ? items.filter(item => labelFn(item).toLowerCase().includes(q))
       : items;
-    dropdown.innerHTML = filtered.slice(0, 40).map(item => `
+    dropdown.innerHTML = filtered.slice(0, 300).map(item => `
       <div class="dropdown-item" onclick="void(0)">
         <span class="dropdown-label">${labelFn(item)}</span>
         <span class="dropdown-sub">${subFn(item)}</span>
@@ -161,8 +225,17 @@ function setupSearch(inputId, dropdownId, items, labelFn, subFn, onSelect) {
     dropdown.classList.toggle('open', filtered.length > 0);
   }
 
-  input.addEventListener('focus', () => renderDropdown(input.value));
-  input.addEventListener('input', () => renderDropdown(input.value));
+  input.addEventListener('focus', () => {
+    if (inputId === 'gpu-search' && state.gpuMode === 'custom') return;
+    renderDropdown(input.value);
+  });
+  input.addEventListener('input', () => {
+    if (inputId === 'gpu-search' && state.gpuMode === 'custom') {
+      handleCustomVramInput(input.value);
+      return;
+    }
+    renderDropdown(input.value);
+  });
   input.addEventListener('blur', () => {
     setTimeout(() => dropdown.classList.remove('open'), 150);
   });
@@ -223,9 +296,9 @@ function calculateModelSpecs() {
   const ramNeeded = calcMinRAM(model.params_B, quant);
   const maxCtx    = calcMaxContext(model.params_B, model, quant, v.weightsGB + v.overheadGB + 2, backend);
 
-  const wPct  = v.total > 0 ? (v.weightsGB / v.totalGB * 100).toFixed(1) : 0;
-  const kvPct = v.total > 0 ? (v.kvCacheGB / v.totalGB * 100).toFixed(1) : 0;
-  const ohPct = v.total > 0 ? (v.overheadGB / v.totalGB * 100).toFixed(1) : 0;
+  const wPct  = v.totalGB > 0 ? (v.weightsGB / v.totalGB * 100).toFixed(1) : 0;
+  const kvPct = v.totalGB > 0 ? (v.kvCacheGB / v.totalGB * 100).toFixed(1) : 0;
+  const ohPct = v.totalGB > 0 ? (v.overheadGB / v.totalGB * 100).toFixed(1) : 0;
 
   const quality = QUANT_QUALITY[quant] || { score: '—', loss: '—', text: 'Unknown', color: '#8B8FA8' };
 
@@ -346,7 +419,11 @@ function selectGPU(gpu) {
 function calculateSpecsModels() {
   const gpu = state.selectedGPU;
   if (!gpu) {
-    showToast('Please select a GPU first');
+    if (state.gpuMode === 'custom') {
+      showToast('Please enter a valid VRAM size first');
+    } else {
+      showToast('Please select a GPU first');
+    }
     return;
   }
 
@@ -415,36 +492,38 @@ function calculateSpecsModels() {
 
       <div class="results-count">${results.length} model${results.length !== 1 ? 's' : ''} fit your rig</div>
 
-      ${results.map(({ model, best, speed, disk }) => `
-        <div class="model-card" onclick="openDrawer('${model.id}')">
-          <div class="model-card-header">
-            <div>
-              <div class="model-card-name">${model.display_name}</div>
-              <div class="model-card-meta">${model.params_B}B · ${model.family} · ${model.architecture}</div>
+      <div class="models-list-container">
+        ${results.map(({ model, best, speed, disk }) => `
+          <div class="model-card" onclick="openDrawer('${model.id}')">
+            <div class="model-card-header">
+              <div>
+                <div class="model-card-name">${model.display_name}</div>
+                <div class="model-card-meta">${model.params_B}B · ${model.family} · ${model.architecture}</div>
+              </div>
+              <span class="fit-badge ${best.label.cssClass}">${best.label.label}</span>
             </div>
-            <span class="fit-badge ${best.label.cssClass}">${best.label.label}</span>
+            <div class="model-card-stats">
+              <span class="model-stat">🔢 ${best.quant}</span>
+              <span class="model-stat">💾 ${disk.toFixed(1)} GB disk</span>
+              <span class="model-stat">⚡ ~${speed.speed} t/s</span>
+              <span class="model-stat">📊 ${Math.round(best.score * 100)}% fit</span>
+            </div>
+            ${model.ollama_name ? `
+            <div class="cmd-row" onclick="event.stopPropagation()">
+              <code class="cmd-code">ollama run ${model.ollama_name}</code>
+              <button class="cmd-copy" onclick="copyText('ollama run ${model.ollama_name}')">Copy</button>
+            </div>` : ''}
           </div>
-          <div class="model-card-stats">
-            <span class="model-stat">🔢 ${best.quant}</span>
-            <span class="model-stat">💾 ${disk.toFixed(1)} GB disk</span>
-            <span class="model-stat">⚡ ~${speed.speed} t/s</span>
-            <span class="model-stat">📊 ${Math.round(best.score * 100)}% fit</span>
-          </div>
-          ${model.ollama_name ? `
-          <div class="cmd-row" onclick="event.stopPropagation()">
-            <code class="cmd-code">ollama run ${model.ollama_name}</code>
-            <button class="cmd-copy" onclick="copyText('ollama run ${model.ollama_name}')">Copy</button>
-          </div>` : ''}
-        </div>
-      `).join('')}
+        `).join('')}
 
-      ${moreModels.length > 0 ? `
-        <div class="upgrade-callout">
-          <span class="callout-icon">💡</span>
-          Adding 8 GB VRAM (→ ${nextVram} GB) would unlock <strong>${moreModels.length} more model${moreModels.length !== 1 ? 's' : ''}</strong>
-          including ${moreModels.slice(0, 3).map(m => m.display_name).join(', ')}${moreModels.length > 3 ? ` and ${moreModels.length - 3} more` : ''}.
-        </div>
-      ` : ''}
+        ${moreModels.length > 0 ? `
+          <div class="upgrade-callout">
+            <span class="callout-icon">💡</span>
+            Adding 8 GB VRAM (→ ${nextVram} GB) would unlock <strong>${moreModels.length} more model${moreModels.length !== 1 ? 's' : ''}</strong>
+            including ${moreModels.slice(0, 3).map(m => m.display_name).join(', ')}${moreModels.length > 3 ? ` and ${moreModels.length - 3} more` : ''}.
+          </div>
+        ` : ''}
+      </div>
     `;
   }
 
@@ -682,3 +761,4 @@ window.setSort             = setSort;
 window.copyText            = copyText;
 window.selectModel         = selectModel;
 window.selectGPU           = selectGPU;
+window.toggleGpuMode       = toggleGpuMode;

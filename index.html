@@ -124,9 +124,12 @@
           <div class="panel-label">Your Hardware</div>
 
           <div class="field-group">
-            <label class="field-label" for="gpu-search">GPU</label>
+            <div class="field-header-row">
+              <label class="field-label" for="gpu-search" id="gpu-label-text">GPU</label>
+              <button type="button" class="field-action-btn" id="gpu-mode-btn" onclick="toggleGpuMode()">or input VRAM</button>
+            </div>
             <div class="search-input-wrap" id="gpu-search-wrap">
-              <span class="search-icon">🔍</span>
+              <span class="search-icon" id="gpu-search-icon">🔍</span>
               <input type="text" class="search-input" id="gpu-search" placeholder="Search GPUs..." autocomplete="off">
               <span class="vram-pill" id="gpu-vram-pill"></span>
               <div class="dropdown-list" id="gpu-dropdown"></div>
@@ -203,5 +206,6 @@
 
   <!-- ═══ SCRIPTS ═══ -->
   <script type="module" src="./src/app.js"></script>
+  <script type="module" src="./src/automation.js"></script>
 </body>
 </html>
