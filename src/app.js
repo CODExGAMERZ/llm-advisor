@@ -430,7 +430,9 @@ function calculateModelSpecs() {
 
 function selectGPU(gpu) {
   state.selectedGPU = gpu;
-  document.getElementById('gpu-vram-pill').textContent = gpu.vram_gb + ' GB VRAM';
+  const pill = document.getElementById('gpu-vram-pill');
+  pill.textContent = gpu.vram_gb + ' GB VRAM';
+  pill.style.display = 'inline-block';
 }
 
 // ─── Mode B: Calculate Compatible Models ──────────────────────────────────────
