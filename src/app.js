@@ -532,7 +532,10 @@ function calculateSpecsModels() {
         </div>
       </div>
 
-      <div class="results-count">${results.length} model${results.length !== 1 ? 's' : ''} fit your rig (${gpuDisplayName})</div>
+      <div class="results-count" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <span>${results.length} model${results.length !== 1 ? 's' : ''} fit your rig (${gpuDisplayName})</span>
+        <button onclick="shareRigConfig()" class="calc-btn" style="width:auto; padding:5px 12px; margin:0; font-size:10px; display:inline-flex; align-items:center; gap:4px; border-radius:4px;"><span style="font-size:11px;">📤</span> Share Rig</button>
+      </div>
 
       <div class="models-list-container">
         ${results.map(({ model, best, speed, disk }) => `
@@ -1054,3 +1057,47 @@ window.copyText            = copyText;
 window.selectModel         = selectModel;
 window.selectGPU           = selectGPU;
 window.toggleGpuMode       = toggleGpuMode;
+
+function shareRigConfig() {
+  const gpu = state.selectedGPU;
+  if (!gpu) {
+    showToast('Select a GPU first!');
+    return;
+  }
+  const count = state.selectedCPU === 'apple' ? 1 : state.selectedGpuCount;
+  const ramGB = RAM_STEPS[state.selectedRamIdx];
+  const backend = state.selectedSpecsBackend;
+  const ctxLen = CTX_STEPS[state.selectedCtxIdx] || 4096;
+
+  const gpuDisplayName = count > 1 ? `${count} × ${gpu.display_name}` : gpu.display_name;
+  const pooledVRAM = gpu.vram_gb * count;
+
+  let text = `⚡ MY HARDWARE RIG CONFIGURATION (via llm-advisor.dev)\n`;
+  text += `--------------------------------------------------\n`;
+  text += `• GPU: ${gpuDisplayName} (${pooledVRAM} GB VRAM)\n`;
+  text += `• CPU Class: ${state.selectedCPU.toUpperCase()}\n`;
+  text += `• System RAM: ${ramGB} GB\n`;
+  text += `• Inference Backend: ${backend}\n`;
+  text += `• Target Context: ${ctxLen} tokens\n`;
+
+  // Get compatible models (similar logic as calculateSpecsModels)
+  const results = MODELS.map(model => {
+    const best = findBestQuant(model.params_B, model, pooledVRAM, model.supported_quants || ['FP16','Q4_K_M'], ctxLen, backend, count);
+    if (!best) return null;
+    return { model, best };
+  }).filter(Boolean);
+
+  if (results.length > 0) {
+    text += `\n🤖 TOP COMPATIBLE MODELS:\n`;
+    results.slice(0, 8).forEach(({ model, best }) => {
+      text += `• ${model.display_name} (${model.params_B}B) — Fits using ${best.quant} (${best.label.label})\n`;
+    });
+  } else {
+    text += `\nNo compatible models found for this configuration.\n`;
+  }
+  
+  copyText(text);
+  showToast('Rig details copied to clipboard!');
+}
+
+window.shareRigConfig = shareRigConfig;
