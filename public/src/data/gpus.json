@@ -1,0 +1,1522 @@
+[
+  {
+    "id": "h200-141gb",
+    "display_name": "NVIDIA H200 141GB",
+    "vram_gb": 141,
+    "bandwidth_GBs": 4800,
+    "architecture": "Hopper",
+    "tier": "datacenter",
+    "msrp_usd": 35000,
+    "year": 2024
+  },
+  {
+    "id": "apple-m2-ultra-128gb",
+    "display_name": "Apple M2 Ultra 128GB",
+    "vram_gb": 128,
+    "bandwidth_GBs": 800,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 5999,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-ultra-128gb",
+    "display_name": "Apple M1 Ultra 128GB",
+    "vram_gb": 128,
+    "bandwidth_GBs": 800,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 5999,
+    "year": 2022
+  },
+  {
+    "id": "apple-m4-max-128gb",
+    "display_name": "Apple M4 Max 128GB",
+    "vram_gb": 128,
+    "bandwidth_GBs": 546,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 5999,
+    "year": 2024
+  },
+  {
+    "id": "apple-m3-max-128gb",
+    "display_name": "Apple M3 Max 128GB",
+    "vram_gb": 128,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 6499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m3-max-96gb",
+    "display_name": "Apple M3 Max 96GB",
+    "vram_gb": 96,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 4999,
+    "year": 2023
+  },
+  {
+    "id": "h100-80gb",
+    "display_name": "NVIDIA H100 80GB",
+    "vram_gb": 80,
+    "bandwidth_GBs": 3350,
+    "architecture": "Hopper",
+    "tier": "datacenter",
+    "msrp_usd": 30000,
+    "year": 2023
+  },
+  {
+    "id": "a100-80gb",
+    "display_name": "NVIDIA A100 80GB",
+    "vram_gb": 80,
+    "bandwidth_GBs": 2039,
+    "architecture": "Ampere",
+    "tier": "datacenter",
+    "msrp_usd": 15000,
+    "year": 2021
+  },
+  {
+    "id": "apple-m2-ultra-64gb",
+    "display_name": "Apple M2 Ultra 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 800,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 3999,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-ultra-64gb",
+    "display_name": "Apple M1 Ultra 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 800,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 3999,
+    "year": 2022
+  },
+  {
+    "id": "apple-m4-max-64gb",
+    "display_name": "Apple M4 Max 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 546,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 3499,
+    "year": 2024
+  },
+  {
+    "id": "apple-m2-max-64gb",
+    "display_name": "Apple M2 Max 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 3499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m3-max-64gb",
+    "display_name": "Apple M3 Max 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 3499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-max-64gb",
+    "display_name": "Apple M1 Max 64GB",
+    "vram_gb": 64,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 3499,
+    "year": 2021
+  },
+  {
+    "id": "rtx-6000-ada",
+    "display_name": "NVIDIA RTX 6000 Ada",
+    "vram_gb": 48,
+    "bandwidth_GBs": 960,
+    "architecture": "Ada Lovelace",
+    "tier": "workstation",
+    "msrp_usd": 6800,
+    "year": 2023
+  },
+  {
+    "id": "l40s-48gb",
+    "display_name": "NVIDIA L40S 48GB",
+    "vram_gb": 48,
+    "bandwidth_GBs": 864,
+    "architecture": "Ada Lovelace",
+    "tier": "datacenter",
+    "msrp_usd": 7500,
+    "year": 2023
+  },
+  {
+    "id": "rtx-a6000",
+    "display_name": "NVIDIA RTX A6000",
+    "vram_gb": 48,
+    "bandwidth_GBs": 768,
+    "architecture": "Ampere",
+    "tier": "workstation",
+    "msrp_usd": 4650,
+    "year": 2020
+  },
+  {
+    "id": "a40-48gb",
+    "display_name": "NVIDIA A40 48GB",
+    "vram_gb": 48,
+    "bandwidth_GBs": 696,
+    "architecture": "Ampere",
+    "tier": "datacenter",
+    "msrp_usd": 5500,
+    "year": 2020
+  },
+  {
+    "id": "apple-m4-max-48gb",
+    "display_name": "Apple M4 Max 48GB",
+    "vram_gb": 48,
+    "bandwidth_GBs": 546,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 3199,
+    "year": 2024
+  },
+  {
+    "id": "apple-m3-max-48gb",
+    "display_name": "Apple M3 Max 48GB",
+    "vram_gb": 48,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 3199,
+    "year": 2023
+  },
+  {
+    "id": "apple-m4-pro-48gb",
+    "display_name": "Apple M4 Pro 48GB",
+    "vram_gb": 48,
+    "bandwidth_GBs": 273,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2024
+  },
+  {
+    "id": "a100-40gb",
+    "display_name": "NVIDIA A100 40GB",
+    "vram_gb": 40,
+    "bandwidth_GBs": 1555,
+    "architecture": "Ampere",
+    "tier": "datacenter",
+    "msrp_usd": 10000,
+    "year": 2020
+  },
+  {
+    "id": "apple-m4-max-36gb",
+    "display_name": "Apple M4 Max 36GB",
+    "vram_gb": 36,
+    "bandwidth_GBs": 546,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 2999,
+    "year": 2024
+  },
+  {
+    "id": "apple-m3-max-36gb",
+    "display_name": "Apple M3 Max 36GB",
+    "vram_gb": 36,
+    "bandwidth_GBs": 300,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 2999,
+    "year": 2023
+  },
+  {
+    "id": "apple-m3-pro-36gb",
+    "display_name": "Apple M3 Pro 36GB",
+    "vram_gb": 36,
+    "bandwidth_GBs": 150,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2023
+  },
+  {
+    "id": "rtx-5090",
+    "display_name": "NVIDIA RTX 5090",
+    "vram_gb": 32,
+    "bandwidth_GBs": 1792,
+    "architecture": "Blackwell",
+    "tier": "consumer_high",
+    "msrp_usd": 1999,
+    "year": 2025
+  },
+  {
+    "id": "rtx-5000-ada",
+    "display_name": "NVIDIA RTX 5000 Ada",
+    "vram_gb": 32,
+    "bandwidth_GBs": 576,
+    "architecture": "Ada Lovelace",
+    "tier": "workstation",
+    "msrp_usd": 4000,
+    "year": 2023
+  },
+  {
+    "id": "apple-m2-max-32gb",
+    "display_name": "Apple M2 Max 32GB",
+    "vram_gb": 32,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-max-32gb",
+    "display_name": "Apple M1 Max 32GB",
+    "vram_gb": 32,
+    "bandwidth_GBs": 400,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2021
+  },
+  {
+    "id": "apple-m2-pro-32gb",
+    "display_name": "Apple M2 Pro 32GB",
+    "vram_gb": 32,
+    "bandwidth_GBs": 200,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-pro-32gb",
+    "display_name": "Apple M1 Pro 32GB",
+    "vram_gb": 32,
+    "bandwidth_GBs": 200,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 2499,
+    "year": 2021
+  },
+  {
+    "id": "rtx-3090-ti",
+    "display_name": "NVIDIA RTX 3090 Ti",
+    "vram_gb": 24,
+    "bandwidth_GBs": 1008,
+    "architecture": "Ampere",
+    "tier": "consumer_high",
+    "msrp_usd": 1999,
+    "year": 2022
+  },
+  {
+    "id": "rtx-4090",
+    "display_name": "NVIDIA RTX 4090",
+    "vram_gb": 24,
+    "bandwidth_GBs": 1008,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_high",
+    "msrp_usd": 1599,
+    "year": 2022
+  },
+  {
+    "id": "rx-7900-xtx",
+    "display_name": "AMD Radeon RX 7900 XTX",
+    "vram_gb": 24,
+    "bandwidth_GBs": 960,
+    "architecture": "RDNA 3",
+    "tier": "consumer_high",
+    "msrp_usd": 999,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3090",
+    "display_name": "NVIDIA RTX 3090",
+    "vram_gb": 24,
+    "bandwidth_GBs": 936,
+    "architecture": "Ampere",
+    "tier": "consumer_high",
+    "msrp_usd": 1499,
+    "year": 2020
+  },
+  {
+    "id": "rtx-a5000",
+    "display_name": "NVIDIA RTX A5000",
+    "vram_gb": 24,
+    "bandwidth_GBs": 768,
+    "architecture": "Ampere",
+    "tier": "workstation",
+    "msrp_usd": 2250,
+    "year": 2021
+  },
+  {
+    "id": "titan-rtx",
+    "display_name": "NVIDIA Titan RTX",
+    "vram_gb": 24,
+    "bandwidth_GBs": 672,
+    "architecture": "Turing",
+    "tier": "workstation",
+    "msrp_usd": 2499,
+    "year": 2018
+  },
+  {
+    "id": "a10-24gb",
+    "display_name": "NVIDIA A10 24GB",
+    "vram_gb": 24,
+    "bandwidth_GBs": 600,
+    "architecture": "Ampere",
+    "tier": "datacenter",
+    "msrp_usd": 3700,
+    "year": 2021
+  },
+  {
+    "id": "l4-24gb",
+    "display_name": "NVIDIA L4 24GB",
+    "vram_gb": 24,
+    "bandwidth_GBs": 300,
+    "architecture": "Ada Lovelace",
+    "tier": "datacenter",
+    "msrp_usd": 2500,
+    "year": 2023
+  },
+  {
+    "id": "apple-m4-pro-24gb",
+    "display_name": "Apple M4 Pro 24GB",
+    "vram_gb": 24,
+    "bandwidth_GBs": 273,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 1999,
+    "year": 2024
+  },
+  {
+    "id": "rx-7900-xt",
+    "display_name": "AMD Radeon RX 7900 XT",
+    "vram_gb": 20,
+    "bandwidth_GBs": 800,
+    "architecture": "RDNA 3",
+    "tier": "consumer_high",
+    "msrp_usd": 899,
+    "year": 2022
+  },
+  {
+    "id": "rtx-4000-ada",
+    "display_name": "NVIDIA RTX 4000 Ada",
+    "vram_gb": 20,
+    "bandwidth_GBs": 360,
+    "architecture": "Ada Lovelace",
+    "tier": "workstation",
+    "msrp_usd": 1250,
+    "year": 2023
+  },
+  {
+    "id": "apple-m3-pro-18gb",
+    "display_name": "Apple M3 Pro 18GB",
+    "vram_gb": 18,
+    "bandwidth_GBs": 150,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 1999,
+    "year": 2023
+  },
+  {
+    "id": "rtx-5080",
+    "display_name": "NVIDIA RTX 5080",
+    "vram_gb": 16,
+    "bandwidth_GBs": 960,
+    "architecture": "Blackwell",
+    "tier": "consumer_high",
+    "msrp_usd": 999,
+    "year": 2025
+  },
+  {
+    "id": "rtx-5070-ti",
+    "display_name": "NVIDIA RTX 5070 Ti",
+    "vram_gb": 16,
+    "bandwidth_GBs": 896,
+    "architecture": "Blackwell",
+    "tier": "consumer_high",
+    "msrp_usd": 749,
+    "year": 2025
+  },
+  {
+    "id": "rtx-4080-super",
+    "display_name": "NVIDIA RTX 4080 Super",
+    "vram_gb": 16,
+    "bandwidth_GBs": 736,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_high",
+    "msrp_usd": 999,
+    "year": 2024
+  },
+  {
+    "id": "rtx-4080",
+    "display_name": "NVIDIA RTX 4080",
+    "vram_gb": 16,
+    "bandwidth_GBs": 717,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_high",
+    "msrp_usd": 1199,
+    "year": 2022
+  },
+  {
+    "id": "rtx-4070-ti-super",
+    "display_name": "NVIDIA RTX 4070 Ti Super",
+    "vram_gb": 16,
+    "bandwidth_GBs": 672,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_high",
+    "msrp_usd": 799,
+    "year": 2024
+  },
+  {
+    "id": "rx-7800-xt",
+    "display_name": "AMD Radeon RX 7800 XT",
+    "vram_gb": 16,
+    "bandwidth_GBs": 624,
+    "architecture": "RDNA 3",
+    "tier": "consumer_mid",
+    "msrp_usd": 499,
+    "year": 2023
+  },
+  {
+    "id": "rtx-5080-laptop",
+    "display_name": "NVIDIA RTX 5080 Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 576,
+    "architecture": "Blackwell",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2025
+  },
+  {
+    "id": "rtx-5090-laptop",
+    "display_name": "NVIDIA RTX 5090 Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 576,
+    "architecture": "Blackwell",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2025
+  },
+  {
+    "id": "rtx-4090-laptop",
+    "display_name": "NVIDIA RTX 4090 Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 576,
+    "architecture": "Ada Lovelace",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rx-7900gre-16gb",
+    "display_name": "AMD Radeon RX 7900 GRE",
+    "vram_gb": 16,
+    "bandwidth_GBs": 576,
+    "architecture": "RDNA 3",
+    "tier": "consumer_high",
+    "msrp_usd": 549,
+    "year": 2023
+  },
+  {
+    "id": "arc-a770-16gb",
+    "display_name": "Intel Arc A770 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 560,
+    "architecture": "Alchemist",
+    "tier": "consumer_high",
+    "msrp_usd": 349,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3080ti-laptop",
+    "display_name": "NVIDIA RTX 3080 Ti Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 512,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2022
+  },
+  {
+    "id": "intel-arc-a770m",
+    "display_name": "Intel Arc A770M Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 512,
+    "architecture": "Alchemist",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2022
+  },
+  {
+    "id": "rx-6900-xt",
+    "display_name": "AMD Radeon RX 6900 XT",
+    "vram_gb": 16,
+    "bandwidth_GBs": 512,
+    "architecture": "RDNA 2",
+    "tier": "consumer_high",
+    "msrp_usd": 999,
+    "year": 2020
+  },
+  {
+    "id": "rx-6800-xt",
+    "display_name": "AMD Radeon RX 6800 XT",
+    "vram_gb": 16,
+    "bandwidth_GBs": 512,
+    "architecture": "RDNA 2",
+    "tier": "consumer_high",
+    "msrp_usd": 649,
+    "year": 2020
+  },
+  {
+    "id": "rx-6800-16gb",
+    "display_name": "AMD Radeon RX 6800",
+    "vram_gb": 16,
+    "bandwidth_GBs": 512,
+    "architecture": "RDNA 2",
+    "tier": "consumer_high",
+    "msrp_usd": 579,
+    "year": 2020
+  },
+  {
+    "id": "amd-rx-7900m-laptop",
+    "display_name": "AMD Radeon RX 7900M Laptop",
+    "vram_gb": 16,
+    "bandwidth_GBs": 480,
+    "architecture": "RDNA 3",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-a4000",
+    "display_name": "NVIDIA RTX A4000",
+    "vram_gb": 16,
+    "bandwidth_GBs": 448,
+    "architecture": "Ampere",
+    "tier": "workstation",
+    "msrp_usd": 1000,
+    "year": 2021
+  },
+  {
+    "id": "rtx-3080-laptop-16gb",
+    "display_name": "NVIDIA RTX 3080 Laptop 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 384,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "rtx-4060-ti-16gb",
+    "display_name": "NVIDIA RTX 4060 Ti 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 288,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_mid",
+    "msrp_usd": 499,
+    "year": 2023
+  },
+  {
+    "id": "apple-m2-pro-16gb",
+    "display_name": "Apple M2 Pro 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 200,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 1999,
+    "year": 2023
+  },
+  {
+    "id": "apple-m1-pro-16gb",
+    "display_name": "Apple M1 Pro 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 200,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 1999,
+    "year": 2021
+  },
+  {
+    "id": "apple-m4-16gb",
+    "display_name": "Apple M4 16GB",
+    "vram_gb": 16,
+    "bandwidth_GBs": 120,
+    "architecture": "Apple M4",
+    "tier": "apple_silicon",
+    "msrp_usd": 1099,
+    "year": 2024
+  },
+  {
+    "id": "rtx-3080-12gb",
+    "display_name": "NVIDIA RTX 3080 12GB",
+    "vram_gb": 12,
+    "bandwidth_GBs": 912,
+    "architecture": "Ampere",
+    "tier": "consumer_high",
+    "msrp_usd": 799,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3080-ti",
+    "display_name": "NVIDIA RTX 3080 Ti",
+    "vram_gb": 12,
+    "bandwidth_GBs": 912,
+    "architecture": "Ampere",
+    "tier": "consumer_high",
+    "msrp_usd": 1199,
+    "year": 2021
+  },
+  {
+    "id": "rtx-5070",
+    "display_name": "NVIDIA RTX 5070",
+    "vram_gb": 12,
+    "bandwidth_GBs": 672,
+    "architecture": "Blackwell",
+    "tier": "consumer_mid",
+    "msrp_usd": 549,
+    "year": 2025
+  },
+  {
+    "id": "rtx-4070-super",
+    "display_name": "NVIDIA RTX 4070 Super",
+    "vram_gb": 12,
+    "bandwidth_GBs": 504,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_mid",
+    "msrp_usd": 599,
+    "year": 2024
+  },
+  {
+    "id": "rtx-4070",
+    "display_name": "NVIDIA RTX 4070",
+    "vram_gb": 12,
+    "bandwidth_GBs": 504,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_mid",
+    "msrp_usd": 549,
+    "year": 2023
+  },
+  {
+    "id": "rtx-4070-ti",
+    "display_name": "NVIDIA RTX 4070 Ti",
+    "vram_gb": 12,
+    "bandwidth_GBs": 504,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_high",
+    "msrp_usd": 799,
+    "year": 2023
+  },
+  {
+    "id": "rtx-5070-laptop",
+    "display_name": "NVIDIA RTX 5070 Laptop",
+    "vram_gb": 12,
+    "bandwidth_GBs": 432,
+    "architecture": "Blackwell",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2025
+  },
+  {
+    "id": "rtx-4080-laptop",
+    "display_name": "NVIDIA RTX 4080 Laptop",
+    "vram_gb": 12,
+    "bandwidth_GBs": 432,
+    "architecture": "Ada Lovelace",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rx-7700xt-12gb",
+    "display_name": "AMD Radeon RX 7700 XT",
+    "vram_gb": 12,
+    "bandwidth_GBs": 432,
+    "architecture": "RDNA 3",
+    "tier": "consumer_mid",
+    "msrp_usd": 449,
+    "year": 2023
+  },
+  {
+    "id": "rx-6700xt-12gb",
+    "display_name": "AMD Radeon RX 6700 XT",
+    "vram_gb": 12,
+    "bandwidth_GBs": 384,
+    "architecture": "RDNA 2",
+    "tier": "consumer_mid",
+    "msrp_usd": 479,
+    "year": 2021
+  },
+  {
+    "id": "rtx-3060-12gb",
+    "display_name": "NVIDIA RTX 3060 12GB",
+    "vram_gb": 12,
+    "bandwidth_GBs": 360,
+    "architecture": "Ampere",
+    "tier": "consumer_mid",
+    "msrp_usd": 329,
+    "year": 2021
+  },
+  {
+    "id": "intel-arc-a730m",
+    "display_name": "Intel Arc A730M Laptop",
+    "vram_gb": 12,
+    "bandwidth_GBs": 336,
+    "architecture": "Alchemist",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2022
+  },
+  {
+    "id": "rtx-2060-12gb",
+    "display_name": "NVIDIA GeForce RTX 2060 12GB",
+    "vram_gb": 12,
+    "bandwidth_GBs": 336,
+    "architecture": "Turing",
+    "tier": "consumer_mid",
+    "msrp_usd": 399,
+    "year": 2021
+  },
+  {
+    "id": "rtx-2080-ti",
+    "display_name": "NVIDIA GeForce RTX 2080 Ti",
+    "vram_gb": 11,
+    "bandwidth_GBs": 616,
+    "architecture": "Turing",
+    "tier": "consumer_high",
+    "msrp_usd": 999,
+    "year": 2018
+  },
+  {
+    "id": "gtx-1080-ti",
+    "display_name": "NVIDIA GeForce GTX 1080 Ti",
+    "vram_gb": 11,
+    "bandwidth_GBs": 484,
+    "architecture": "Pascal",
+    "tier": "consumer_mid",
+    "msrp_usd": 699,
+    "year": 2017
+  },
+  {
+    "id": "rtx-3080-10gb",
+    "display_name": "NVIDIA RTX 3080 10GB",
+    "vram_gb": 10,
+    "bandwidth_GBs": 760,
+    "architecture": "Ampere",
+    "tier": "consumer_high",
+    "msrp_usd": 699,
+    "year": 2020
+  },
+  {
+    "id": "rtx-3070-ti",
+    "display_name": "NVIDIA RTX 3070 Ti",
+    "vram_gb": 8,
+    "bandwidth_GBs": 608,
+    "architecture": "Ampere",
+    "tier": "consumer_mid",
+    "msrp_usd": 599,
+    "year": 2021
+  },
+  {
+    "id": "arc-a580",
+    "display_name": "Intel Arc A580",
+    "vram_gb": 8,
+    "bandwidth_GBs": 512,
+    "architecture": "Alchemist",
+    "tier": "consumer_mid",
+    "msrp_usd": 179,
+    "year": 2023
+  },
+  {
+    "id": "arc-a750",
+    "display_name": "Intel Arc A750",
+    "vram_gb": 8,
+    "bandwidth_GBs": 512,
+    "architecture": "Alchemist",
+    "tier": "consumer_mid",
+    "msrp_usd": 289,
+    "year": 2022
+  },
+  {
+    "id": "arc-a770-8gb",
+    "display_name": "Intel Arc A770 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 512,
+    "architecture": "Alchemist",
+    "tier": "consumer_mid",
+    "msrp_usd": 329,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3060-ti",
+    "display_name": "NVIDIA RTX 3060 Ti",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Ampere",
+    "tier": "consumer_mid",
+    "msrp_usd": 399,
+    "year": 2020
+  },
+  {
+    "id": "rtx-3070",
+    "display_name": "NVIDIA RTX 3070",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Ampere",
+    "tier": "consumer_mid",
+    "msrp_usd": 499,
+    "year": 2020
+  },
+  {
+    "id": "rtx-2060-super",
+    "display_name": "NVIDIA GeForce RTX 2060 Super",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Turing",
+    "tier": "consumer_mid",
+    "msrp_usd": 399,
+    "year": 2019
+  },
+  {
+    "id": "rtx-2070-super",
+    "display_name": "NVIDIA GeForce RTX 2070 Super",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Turing",
+    "tier": "consumer_mid",
+    "msrp_usd": 499,
+    "year": 2019
+  },
+  {
+    "id": "rtx-2080-super",
+    "display_name": "NVIDIA GeForce RTX 2080 Super",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Turing",
+    "tier": "consumer_high",
+    "msrp_usd": 699,
+    "year": 2019
+  },
+  {
+    "id": "rx-5700-8gb",
+    "display_name": "AMD Radeon RX 5700",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "RDNA 1",
+    "tier": "consumer_mid",
+    "msrp_usd": 349,
+    "year": 2019
+  },
+  {
+    "id": "rx-5700xt-8gb",
+    "display_name": "AMD Radeon RX 5700 XT",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "RDNA 1",
+    "tier": "consumer_mid",
+    "msrp_usd": 399,
+    "year": 2019
+  },
+  {
+    "id": "rtx-2070",
+    "display_name": "NVIDIA GeForce RTX 2070",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Turing",
+    "tier": "consumer_mid",
+    "msrp_usd": 499,
+    "year": 2018
+  },
+  {
+    "id": "rtx-2080",
+    "display_name": "NVIDIA GeForce RTX 2080",
+    "vram_gb": 8,
+    "bandwidth_GBs": 448,
+    "architecture": "Turing",
+    "tier": "consumer_high",
+    "msrp_usd": 699,
+    "year": 2018
+  },
+  {
+    "id": "rtx-3080-laptop-8gb",
+    "display_name": "NVIDIA RTX 3080 Laptop 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 384,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "gtx-1080",
+    "display_name": "NVIDIA GeForce GTX 1080",
+    "vram_gb": 8,
+    "bandwidth_GBs": 320,
+    "architecture": "Pascal",
+    "tier": "consumer_mid",
+    "msrp_usd": 599,
+    "year": 2016
+  },
+  {
+    "id": "rtx-5060-laptop",
+    "display_name": "NVIDIA RTX 5060 Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 288,
+    "architecture": "Blackwell",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2025
+  },
+  {
+    "id": "amd-rx-7600m-xt-laptop",
+    "display_name": "AMD Radeon RX 7600M XT Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 288,
+    "architecture": "RDNA 3",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-4060-ti-8gb",
+    "display_name": "NVIDIA RTX 4060 Ti 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 288,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_mid",
+    "msrp_usd": 399,
+    "year": 2023
+  },
+  {
+    "id": "rx-7600-8gb",
+    "display_name": "AMD Radeon RX 7600",
+    "vram_gb": 8,
+    "bandwidth_GBs": 288,
+    "architecture": "RDNA 3",
+    "tier": "consumer_mid",
+    "msrp_usd": 269,
+    "year": 2023
+  },
+  {
+    "id": "rtx-4060",
+    "display_name": "NVIDIA RTX 4060",
+    "vram_gb": 8,
+    "bandwidth_GBs": 272,
+    "architecture": "Ada Lovelace",
+    "tier": "consumer_mid",
+    "msrp_usd": 299,
+    "year": 2023
+  },
+  {
+    "id": "amd-rx-7600s-laptop",
+    "display_name": "AMD Radeon RX 7600S Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "RDNA 3",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-4060-laptop",
+    "display_name": "NVIDIA RTX 4060 Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Ada Lovelace",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-4070-laptop",
+    "display_name": "NVIDIA RTX 4070 Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Ada Lovelace",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-3070ti-laptop",
+    "display_name": "NVIDIA RTX 3070 Ti Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3070-laptop",
+    "display_name": "NVIDIA RTX 3070 Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "rx-6600xt-8gb",
+    "display_name": "AMD Radeon RX 6600 XT",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "RDNA 2",
+    "tier": "consumer_mid",
+    "msrp_usd": 379,
+    "year": 2021
+  },
+  {
+    "id": "rx-590-8gb",
+    "display_name": "AMD Radeon RX 590 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 279,
+    "year": 2018
+  },
+  {
+    "id": "gtx-1070-ti",
+    "display_name": "NVIDIA GeForce GTX 1070 Ti",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 449,
+    "year": 2017
+  },
+  {
+    "id": "rx-580-8gb",
+    "display_name": "AMD Radeon RX 580 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 229,
+    "year": 2017
+  },
+  {
+    "id": "gtx-1070",
+    "display_name": "NVIDIA GeForce GTX 1070",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 379,
+    "year": 2016
+  },
+  {
+    "id": "rx-480-8gb",
+    "display_name": "AMD Radeon RX 480 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 239,
+    "year": 2016
+  },
+  {
+    "id": "intel-arc-a570m",
+    "display_name": "Intel Arc A570M Laptop",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "Alchemist",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-3050-8gb",
+    "display_name": "NVIDIA RTX 3050 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "Ampere",
+    "tier": "consumer_low",
+    "msrp_usd": 249,
+    "year": 2022
+  },
+  {
+    "id": "rx-6600-8gb",
+    "display_name": "AMD Radeon RX 6600",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "RDNA 2",
+    "tier": "consumer_mid",
+    "msrp_usd": 329,
+    "year": 2021
+  },
+  {
+    "id": "rx-5500xt-8gb",
+    "display_name": "AMD Radeon RX 5500 XT 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "RDNA 1",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2019
+  },
+  {
+    "id": "rx-570-8gb",
+    "display_name": "AMD Radeon RX 570 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 169,
+    "year": 2017
+  },
+  {
+    "id": "apple-m3-8gb",
+    "display_name": "Apple M3 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 100,
+    "architecture": "Apple M3",
+    "tier": "apple_silicon",
+    "msrp_usd": 1099,
+    "year": 2023
+  },
+  {
+    "id": "apple-m2-8gb",
+    "display_name": "Apple M2 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 100,
+    "architecture": "Apple M2",
+    "tier": "apple_silicon",
+    "msrp_usd": 1099,
+    "year": 2022
+  },
+  {
+    "id": "apple-m1-8gb",
+    "display_name": "Apple M1 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 68,
+    "architecture": "Apple M1",
+    "tier": "apple_silicon",
+    "msrp_usd": 999,
+    "year": 2020
+  },
+  {
+    "id": "gtx-1660-super",
+    "display_name": "NVIDIA GeForce GTX 1660 Super",
+    "vram_gb": 6,
+    "bandwidth_GBs": 336,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 229,
+    "year": 2019
+  },
+  {
+    "id": "rtx-2060",
+    "display_name": "NVIDIA GeForce RTX 2060",
+    "vram_gb": 6,
+    "bandwidth_GBs": 336,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 349,
+    "year": 2019
+  },
+  {
+    "id": "gtx-980-ti",
+    "display_name": "NVIDIA GeForce GTX 980 Ti",
+    "vram_gb": 6,
+    "bandwidth_GBs": 336,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 649,
+    "year": 2015
+  },
+  {
+    "id": "rx-5600xt-6gb",
+    "display_name": "AMD Radeon RX 5600 XT 6GB",
+    "vram_gb": 6,
+    "bandwidth_GBs": 288,
+    "architecture": "RDNA 1",
+    "tier": "consumer_low",
+    "msrp_usd": 279,
+    "year": 2020
+  },
+  {
+    "id": "gtx-1660-ti",
+    "display_name": "NVIDIA GeForce GTX 1660 Ti",
+    "vram_gb": 6,
+    "bandwidth_GBs": 288,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 279,
+    "year": 2019
+  },
+  {
+    "id": "rtx-5050-laptop",
+    "display_name": "NVIDIA RTX 5050 Laptop",
+    "vram_gb": 6,
+    "bandwidth_GBs": 224,
+    "architecture": "Blackwell",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2025
+  },
+  {
+    "id": "rtx-4050-laptop",
+    "display_name": "NVIDIA RTX 4050 Laptop",
+    "vram_gb": 6,
+    "bandwidth_GBs": 192,
+    "architecture": "Ada Lovelace",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "rtx-3060-laptop",
+    "display_name": "NVIDIA RTX 3060 Laptop",
+    "vram_gb": 6,
+    "bandwidth_GBs": 192,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "gtx-1660",
+    "display_name": "NVIDIA GeForce GTX 1660",
+    "vram_gb": 6,
+    "bandwidth_GBs": 192,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 219,
+    "year": 2019
+  },
+  {
+    "id": "gtx-1060-6gb",
+    "display_name": "NVIDIA GeForce GTX 1060 6GB",
+    "vram_gb": 6,
+    "bandwidth_GBs": 192,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 249,
+    "year": 2016
+  },
+  {
+    "id": "arc-a380",
+    "display_name": "Intel Arc A380",
+    "vram_gb": 6,
+    "bandwidth_GBs": 186,
+    "architecture": "Alchemist",
+    "tier": "consumer_low",
+    "msrp_usd": 139,
+    "year": 2022
+  },
+  {
+    "id": "rtx-3050-6gb",
+    "display_name": "NVIDIA RTX 3050 6GB",
+    "vram_gb": 6,
+    "bandwidth_GBs": 168,
+    "architecture": "Ampere",
+    "tier": "consumer_low",
+    "msrp_usd": 169,
+    "year": 2024
+  },
+  {
+    "id": "rx-470-4gb",
+    "display_name": "AMD Radeon RX 470 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 179,
+    "year": 2016
+  },
+  {
+    "id": "gtx-970",
+    "display_name": "NVIDIA GeForce GTX 970",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 329,
+    "year": 2014
+  },
+  {
+    "id": "gtx-980",
+    "display_name": "NVIDIA GeForce GTX 980",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 549,
+    "year": 2014
+  },
+  {
+    "id": "gtx-1650-super",
+    "display_name": "NVIDIA GeForce GTX 1650 Super",
+    "vram_gb": 4,
+    "bandwidth_GBs": 192,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 159,
+    "year": 2019
+  },
+  {
+    "id": "rx-6500xt-4gb",
+    "display_name": "AMD Radeon RX 6500 XT",
+    "vram_gb": 4,
+    "bandwidth_GBs": 144,
+    "architecture": "RDNA 2",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2022
+  },
+  {
+    "id": "gtx-1650",
+    "display_name": "NVIDIA GeForce GTX 1650",
+    "vram_gb": 4,
+    "bandwidth_GBs": 128,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 149,
+    "year": 2019
+  },
+  {
+    "id": "intel-arc-a370m",
+    "display_name": "Intel Arc A370M Laptop",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Alchemist",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2022
+  },
+  {
+    "id": "gtx-1050-ti",
+    "display_name": "NVIDIA GeForce GTX 1050 Ti",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 139,
+    "year": 2016
+  },
+  {
+    "id": "rtx-3050-laptop",
+    "display_name": "NVIDIA RTX 3050 Laptop",
+    "vram_gb": 4,
+    "bandwidth_GBs": 96,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "rtx-3050ti-laptop",
+    "display_name": "NVIDIA RTX 3050 Ti Laptop",
+    "vram_gb": 4,
+    "bandwidth_GBs": 96,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "rtx-2050-laptop",
+    "display_name": "NVIDIA RTX 2050 Laptop",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2021
+  },
+  {
+    "id": "gtx-1650ti",
+    "display_name": "NVIDIA GeForce GTX 1650 Ti",
+    "vram_gb": 4,
+    "bandwidth_GBs": 192,
+    "architecture": "Turing",
+    "tier": "consumer_low",
+    "msrp_usd": 149,
+    "year": 2020
+  },
+  {
+    "id": "gtx-980",
+    "display_name": "NVIDIA GeForce GTX 980",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 549,
+    "year": 2014
+  },
+  {
+    "id": "rx-570-4gb",
+    "display_name": "AMD Radeon RX 570 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 224,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 169,
+    "year": 2017
+  },
+  {
+    "id": "rtx-3050-6gb-laptop",
+    "display_name": "NVIDIA RTX 3050 6GB Laptop",
+    "vram_gb": 6,
+    "bandwidth_GBs": 168,
+    "architecture": "Ampere",
+    "tier": "laptop",
+    "msrp_usd": 0,
+    "year": 2023
+  },
+  {
+    "id": "gtx-960-4gb",
+    "display_name": "NVIDIA GeForce GTX 960 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 112,
+    "architecture": "Maxwell",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2015
+  },
+  {
+    "id": "gtx-1070-ti",
+    "display_name": "NVIDIA GeForce GTX 1070 Ti",
+    "vram_gb": 8,
+    "bandwidth_GBs": 256,
+    "architecture": "Pascal",
+    "tier": "consumer_low",
+    "msrp_usd": 449,
+    "year": 2017
+  },
+  {
+    "id": "rx-470-4gb",
+    "display_name": "AMD Radeon RX 470 4GB",
+    "vram_gb": 4,
+    "bandwidth_GBs": 176,
+    "architecture": "GCN 4.0",
+    "tier": "consumer_low",
+    "msrp_usd": 179,
+    "year": 2016
+  },
+  {
+    "id": "rx-5500xt-8gb",
+    "display_name": "AMD Radeon RX 5500 XT 8GB",
+    "vram_gb": 8,
+    "bandwidth_GBs": 224,
+    "architecture": "RDNA 1.0",
+    "tier": "consumer_low",
+    "msrp_usd": 199,
+    "year": 2019
+  }
+]

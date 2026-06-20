@@ -7,11 +7,14 @@
   <meta name="description" content="Give it a model, get the specs you need. Give it your specs, get the best models you can run. Free, client-side LLM compatibility calculator.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230E0F11'/><text x='4' y='24' font-size='22' fill='%2300D4AA'>⚡</text></svg>">
   <link rel="stylesheet" href="./src/css/style.css">
 </head>
 <body>
+  <!-- ═══ 3D GRID BACKDROP ═══ -->
+  <div class="threed-grid-backdrop"></div>
+
   <div class="app-container">
     <!-- ═══ HEADER ═══ -->
     <header class="header" id="app-header">
@@ -39,27 +42,33 @@
         Click any model — see full compatibility detail for your exact rig.
       </p>
       <div class="landing-cards">
-        <div class="landing-card" onclick="showMode('model')">
-          <span class="landing-card-icon">🔬</span>
-          <div class="landing-card-title">model → specs</div>
-          <div class="landing-card-desc">
-            Pick a model and see exactly how much VRAM, RAM, and disk space it needs at any quantization level.
+        <div class="landing-card tilt-3d" onclick="showMode('model')">
+          <div>
+            <span class="landing-card-icon">🔬</span>
+            <div class="landing-card-title">model → specs</div>
+            <div class="landing-card-desc">
+              Pick a model and see exactly how much VRAM, RAM, and disk space it needs at any quantization level.
+            </div>
           </div>
           <span class="landing-badge">I KNOW WHAT I WANT TO RUN</span>
         </div>
-        <div class="landing-card" onclick="showMode('specs')">
-          <span class="landing-card-icon">🖥️</span>
-          <div class="landing-card-title">specs → model</div>
-          <div class="landing-card-desc">
-            Enter your GPU, RAM, and CPU — get a ranked list of every model that fits your hardware.
+        <div class="landing-card tilt-3d" onclick="showMode('specs')">
+          <div>
+            <span class="landing-card-icon">🖥️</span>
+            <div class="landing-card-title">specs → model</div>
+            <div class="landing-card-desc">
+              Enter your GPU, RAM, and CPU — get a ranked list of every model that fits your hardware.
+            </div>
           </div>
           <span class="landing-badge">SHOW ME WHAT FITS MY RIG</span>
         </div>
-        <div class="landing-card" onclick="showMode('custom')">
-          <span class="landing-card-icon">🧮</span>
-          <div class="landing-card-title">custom calculator</div>
-          <div class="landing-card-desc">
-            Enter custom parameter sizes, bits, and attention styles to estimate requirements for any new LLM.
+        <div class="landing-card tilt-3d" onclick="showMode('custom')">
+          <div>
+            <span class="landing-card-icon">🧮</span>
+            <div class="landing-card-title">custom calculator</div>
+            <div class="landing-card-desc">
+              Enter custom parameter sizes, bits, and attention styles to estimate requirements for any new LLM.
+            </div>
           </div>
           <span class="landing-badge">CALCULATE ANY NEW MODEL</span>
         </div>
@@ -73,7 +82,7 @@
     <div id="page-model" class="hidden">
       <div class="mode-layout">
         <!-- Input Panel -->
-        <div class="panel">
+        <div class="panel tilt-3d">
           <div class="panel-label">Configure Model</div>
 
           <div class="field-group">
@@ -137,7 +146,7 @@
     <div id="page-specs" class="hidden">
       <div class="mode-layout">
         <!-- Input Panel -->
-        <div class="panel">
+        <div class="panel tilt-3d">
           <div class="panel-label">Your Hardware</div>
 
           <div class="field-group">
@@ -224,7 +233,7 @@
     <div id="page-custom" class="hidden">
       <div class="mode-layout">
         <!-- Input Panel -->
-        <div class="panel">
+        <div class="panel tilt-3d">
           <div class="panel-label">Custom Model Parameters</div>
 
           <div class="field-group">

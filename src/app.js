@@ -1016,6 +1016,105 @@ function init() {
       calculateSpecsModels();
     }
   );
+
+  // Initialize interactive 3D Tilt animation controller
+  new TiltController();
+}
+
+class TiltController {
+  constructor() {
+    this.tiltedElement = null;
+    this.mouseX = 0;
+    this.mouseY = 0;
+    this.isActive = false;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+
+    if (prefersReducedMotion || isTouchDevice) {
+      console.log('3D Tilt animations disabled due to device features or accessibility options.');
+      return;
+    }
+
+    this.init();
+  }
+
+  init() {
+    document.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+    
+    document.addEventListener('mouseover', (e) => {
+      const target = e.target.closest('.tilt-3d, .model-card');
+      if (target) {
+        this.setTiltedElement(target);
+      }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      const target = e.target.closest('.tilt-3d, .model-card');
+      if (target && this.tiltedElement === target) {
+        const related = e.relatedTarget;
+        if (!related || !target.contains(related)) {
+          this.clearTiltedElement();
+        }
+      }
+    });
+  }
+
+  setTiltedElement(el) {
+    if (this.tiltedElement === el) return;
+    if (this.tiltedElement) {
+      this.clearTiltedElement();
+    }
+    this.tiltedElement = el;
+    el.style.willChange = 'transform';
+    if (!this.isActive) {
+      this.isActive = true;
+      this.tick();
+    }
+  }
+
+  clearTiltedElement() {
+    const el = this.tiltedElement;
+    if (!el) return;
+    el.style.transform = '';
+    el.style.setProperty('--glare-x', '50%');
+    el.style.setProperty('--glare-y', '50%');
+    el.style.setProperty('--glare-opacity', '0');
+    el.style.willChange = '';
+    this.tiltedElement = null;
+    this.isActive = false;
+  }
+
+  handleMouseMove(e) {
+    this.mouseX = e.clientX;
+    this.mouseY = e.clientY;
+  }
+
+  tick() {
+    if (!this.isActive || !this.tiltedElement) return;
+
+    const el = this.tiltedElement;
+    const rect = el.getBoundingClientRect();
+    const x = this.mouseX - rect.left;
+    const y = this.mouseY - rect.top;
+    const w = rect.width;
+    const h = rect.height;
+    
+    if (w === 0 || h === 0) return;
+
+    const dx = (x / w) - 0.5;
+    const dy = (y / h) - 0.5;
+    const maxRotate = 8;
+    const rotateX = -dy * maxRotate;
+    const rotateY = dx * maxRotate;
+    
+    el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02) translateZ(10px)`;
+    el.style.setProperty('--glare-x', `${(x / w * 100).toFixed(1)}%`);
+    el.style.setProperty('--glare-y', `${(y / h * 100).toFixed(1)}%`);
+    el.style.setProperty('--glare-opacity', '0.15');
+
+    requestAnimationFrame(() => this.tick());
+  }
 }
 
 async function loadData() {

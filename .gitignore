@@ -35,3 +35,7 @@ examples and plan/
 # src/engine/fitScore.js
 # src/engine/memoryCalc.js
 # src/engine/speedEstimate.js
+
+# ─── Web App Build & Packages ──────────────────────────────────────────────────
+dist/
+node_modules/
